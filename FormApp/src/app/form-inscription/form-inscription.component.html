@@ -1,0 +1,212 @@
+<div class="row custom-row">
+  <div class= "col-sm-5 custom-container jumbotron">
+
+    <form novalidate
+          (ngSubmit)="onFormSubmit(forminscription)"
+          #forminscription="ngForm">
+      <fieldset>
+        <legend>Sign Up</legend>
+        <!---indentification-->
+        <div class="form-group">
+          <label for="inputLastname" class="col-lg-2
+              control-label">Lastname</label>
+
+          <div class="col-lg-7">
+            <input type="text"  class="form-control"
+                   [ngModel] = "user.Lastname" name="Lastname"
+                   #Lastname = "ngModel" id="inputLastname"
+                   placeholder="Lastname">
+          </div>
+        </div>
+          <div class="form-group">
+            <label for="inputFirstname" class="col-lg-2
+              control-label">Firstname</label>
+
+            <div class="col-lg-7">
+              <input type="text"  class="form-control"
+                     [ngModel] = "user.Firstname" name="Firstname"
+                     #Lastname = "ngModel" id="inputFirstname"
+                     placeholder="Firstname">
+            </div>
+          </div>
+        <div class="form-group">
+          <label for="inputPhone" class="col-lg-2
+		      control-label">Phone</label>
+          <div class="col-lg-7">
+            <input type="text" class = "form-control"
+                   [ngModel] = "user.phone" name="Phone"
+                   #phone = "ngModel" id="inputPhone"
+                   placeholder="Phone"
+                   pattern= "[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}"
+                   required>
+          </div>
+          <!-- phone error block-->
+
+          <div *ngIf="phone.invalid && (phone.touched)"
+               class="col-sm-3 text-danger">
+            <div *ngIf = "phone.errors?.required">
+              phone field can't be blank
+            </div>
+            <div *ngIf = "phone.errors?.pattern && phone.touched">
+              The phone id doesn't seem right
+            </div>
+          </div>
+        </div>
+        <!----block localisation--->
+        <div class="form-group">
+          <label for="inputAddress" class="col-lg-2
+              control-label">Address</label>
+
+          <div class="col-lg-7">
+            <input type="text"  class="form-control"
+                   [ngModel] = "user.Address" name="Address"
+                   #Address= "ngModel" id="inputAddress"
+                   placeholder="Address">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCity" class="col-lg-2
+              control-label">City</label>
+
+          <div class="col-lg-7">
+            <input type="text"  class="form-control"
+                   [ngModel] = "user.City" name="City"
+                   #City = "ngModel" id="inputCity"
+                   placeholder="City">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputZipCode" class="col-lg-2
+              control-label">ZipCode</label>
+
+          <div class="col-lg-7">
+            <input type="text"  class="form-control"
+                   [ngModel] = "user.ZipCode" name="Zipcode"
+                   #Zipcode = "ngModel" id="inputZipCode"
+                   placeholder="Zipcode">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCountry" class="col-lg-2
+              control-label">Country</label>
+
+          <div class="col-lg-7">
+            <input type="text"  class="form-control"
+                   [ngModel] = "user.Country" name="Country"
+                   #Country = "ngModel" id="inputCountry"
+                   placeholder="Email">
+          </div>
+        </div>
+        <!--- Email Block -->
+        <div class="form-group">
+          <label for="inputEmail" class="col-lg-2
+		      control-label">Email</label>
+          <div class="col-lg-7">
+            <input type="text" class = "form-control"
+                   [ngModel] = "user.email" name="email"
+                   #email = "ngModel" id="inputEmail"
+                   placeholder="Email"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                   required>
+          </div>
+
+
+          <!-- Email error block -->
+
+          <div *ngIf="email.invalid && ( email.touched)"
+               class="col-sm-3 text-danger">
+            <div *ngIf = "email.errors?.required">
+              Email field can't be blank
+            </div>
+            <div *ngIf = "email.errors?.pattern && email.touched">
+              The email id doesn't seem right
+            </div>
+          </div>
+        </div>
+
+        <!-- Password block -->
+        <div ngModelGroup="password" #userPassword="ngModelGroup" >
+          <div class="form-group ">
+            <label for="inputPassword" class="col-lg-2 	control-label">Password</label>
+            <div class="col-lg-7">
+              <input type="password" class="form-control"
+                     ngModel name="pwd"
+                     id="inputPassword" placeholder="Password"
+                     minlength ="8" required
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword" class="col-lg-2
+		      control-label" >Confirm Password</label>
+            <div class="col-lg-7">
+              <input type="password" class="form-control"
+                     ngModel name="confirmPwd"
+                     id="confirmPassword" placeholder="Confirm Password">
+            </div>
+          </div>
+
+          <!-- Password error block -->
+          <div *ngIf="(userPassword.invalid|| userPassword.value?.pwd != userPassword.value?.confirmPwd) && (userPassword.touched)"
+               class="col-sm-3 text-danger">
+
+            <div *ngIf = "userPassword.invalid; else nomatch">
+              Password needs to be more than 8 characters
+            </div>
+            <ng-template #nomatch >
+              Passwords don't match
+            </ng-template>
+
+          </div>
+        </div>
+
+        <br>
+        <!-- Select Gender block -->
+        <div class="form-group">
+          <label for="select" class="col-lg-2">Gender</label>
+          <div class="col-lg-7">
+            <select id="select" class="form-control"
+                    [ngModel] = "user.gender" name = "gender"
+                    required>
+
+              <option *ngFor = "let g of gender"
+                      [value] = "g"> {{g}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Terms checkbox block -->
+
+        <div class="form-group checkbox">
+          <div class="col-lg-6 ">
+            <input type="checkbox"
+                   ngModel name = "terms"
+                   #terms = "ngModel"
+                   required> Confirm that you've read the Terms and Condition
+          </div>
+
+
+          <!-- Terms checkbox error block -->
+          <div *ngIf="(terms.invalid && terms.touched)"
+               class="col-lg-4 text-danger">
+            You need to check this box to continue
+          </div>
+        </div>
+
+        <!-- Buttons block -->
+        <div class="form-group ">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="reset" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-success"
+                    [disabled]="!forminscription.form.valid"> Submit
+            </button>
+          </div>
+        </div>
+
+
+      </fieldset>
+    </form>
+  </div>
+</div>
